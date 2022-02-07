@@ -1,0 +1,113 @@
+.padded-input {
+    padding: 0.33rem 0.5rem;
+}
+
+.top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1rem;
+}
+
+.delete-link {
+    cursor: pointer;
+    display: inherit !important;
+    justify-content: end;
+    padding-right: 2rem !important;
+    font-size: 0.8rem;
+    color: white;
+    text-decoration: none;
+}
+
+.delete-link:hover {
+    color: white;
+}
+
+.card-item {
+    cursor: pointer;
+    border: 3px solid white !important;
+    border-radius: 10px !important;
+}
+
+textarea, input[type=text] {
+    background-color: inherit !important;
+    border: 3px solid white !important;
+    border-radius: 10px !important;
+    color: white !important;
+}
+
+textarea:focus-visible, input[type=text] {
+    outline: none !important;
+}
+
+.set-name {
+    transition: 0.2s all ease;
+}
+
+.set-name:hover {
+    padding-left: 0.5rem;
+}
+
+.btn-outline-light {
+	border-width: 3px !important;
+	border-radius: 10px !important;
+}
+
+.accordion-item {
+	background-color: inherit !important;
+	border: 3px solid white !important;
+    border-radius: 10px !important;
+	text-align: left !important;
+}
+
+.accordion-button {
+	background-color: inherit !important;
+	border-bottom: 0px solid white !important;
+	color: white !important;
+}
+
+.accordion-button:focus {
+	box-shadow: none !important;
+}
+
+.accordion-button::after {
+	filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(20deg) brightness(103%) contrast(101%);
+}
+
+h1 {
+	font-family: 'Pacifico', cursive;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    background-color: black !important;
+    color: white !important;
+    text-align: center;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    opacity: 0.2;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    max-width: 500px;
+}
+
+.spaced {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: bold !important;
+}
+
+.border-bold {
+    border-width: 3px !important;
+}

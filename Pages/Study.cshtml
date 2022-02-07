@@ -1,0 +1,44 @@
+﻿@page "{id:int}"
+@model StudyModel
+
+@{
+    ViewData["Title"] = "Study";
+}
+
+<div class="container py-5">
+    <h1>@Model.Set.Name</h1>
+    <p>The perfect place to test your knowledge</p>
+    <div class="row">
+        <div class="offset-md-3 col-md-6 p-3">
+            <p class="w-100 p-3 card-item" onclick="reveal_back()">
+                @if (Model.Card == null)
+                {
+                    <span id="front-text">No card was found in your set</span>
+                    <span style="display: none" id="back-text">That's very sad :'(</span>
+                }
+                else
+                {
+                    <span id="front-text">@Model.Card.Front</span>
+                    <span style="display: none" id="back-text">@Model.Card.Back</span>
+                }
+            </p>
+        </div>
+    </div>
+    <div class="p-2 d-inline-block">
+        <p>Click the card to reveal the back</p>
+        <input type="submit" onclick="reload_page()" class="btn btn-outline-light m-auto px-4" value="Next Card">
+    </div>
+</div>
+<script>
+    let front = document.getElementById("front-text");
+    let back = document.getElementById("back-text");
+
+    function reveal_back() {
+        front.style.display = "none";
+        back.style.display = "";
+    }
+
+    function reload_page() {
+        location.href = location.href;
+    }
+</script>

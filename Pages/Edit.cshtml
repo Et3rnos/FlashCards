@@ -1,0 +1,90 @@
+﻿@page "{id:int}"
+@model EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container py-5">
+    <h1>@Model.Set.Name</h1>
+    <p>The perfect place to edit your cards</p>
+    <div class="row">
+        @foreach   (var card in Model.Set.Cards)
+        {
+            <div class="col-md-6 p-3 pb-0">
+                <textarea class="w-100 p-3" id="cardfront@(card.Id)">@card.Front</textarea>
+            </div>
+            <div class="col-md-6 p-3 pb-0">
+                <textarea class="w-100 p-3" id="cardback@(card.Id)">@card.Back</textarea>
+            </div>
+            <form asp-page-handler="deletecard" method="POST" id="deletecardform@(card.Id)">
+                <input type="hidden" name="setid" value="@Model.Set.Id"/>
+                <input type="hidden" name="cardid" value="@card.Id"/>
+            </form>
+            <a class="delete-link" onclick="deletecard(@(card.Id))">Delete</a>
+        }
+    </div>
+    <form asp-page-handler="newcard" method="POST" id="newcardform">
+        <input type="hidden" name="setid" value="@Model.Set.Id"   />
+    </form>
+    <div class="p-2 d-inline-block">
+        <input type="submit" onclick="newcard()" class="btn btn-outline-light m-auto px-4" value="New Card">
+    </div>
+    <div class="p-2 d-inline-block">
+        <input type="submit" onclick="save()" class="btn btn-outline-light m-auto px-4" value="Save Cards">
+    </div>
+</div>
+<script>
+    window.scrollTo({
+		top: document.body.scrollHeight,
+		left: 0,
+		behavior: 'instant'
+	});
+
+    let changedtextareas = []
+    function textchange()
+    {
+        if (!changedtextareas.includes(this)) changedtextareas.push(this);
+    }
+
+    let textareas = document.getElementsByTagName("textarea");
+    for (let i = 0; i < textareas.length; i++)
+    {
+        textareas[i].addEventListener("input", textchange);
+    }
+
+    function save() {
+        request = save_without_reload();
+        request.then(x => location.href = location.href);
+    }
+
+    function save_without_reload()
+    {
+        let payload = [];
+        for (let i = 0; i < changedtextareas.length; i++)
+        {
+            let id = changedtextareas[i].id;
+
+            let num = id.replace(/\D/g, "");
+            let isFront = id.includes("front");
+            let text = changedtextareas[i].value;
+            payload.push({ id: num, isFront: isFront, text: text })
+        }
+        changedtextareas = [];
+        return fetch("/api/cards/update", { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
+    }
+
+    function newcard()
+    {
+        request = save_without_reload();
+        request.then(x => document.getElementById("newcardform").submit());
+    }
+
+    function deletecard(id)
+    {
+        request = save_without_reload();
+        request.then(x => document.getElementById("deletecardform" + id).submit());
+    }
+
+    window.setInterval(() => save_without_reload(), 60000);
+</script>
